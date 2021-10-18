@@ -1,0 +1,241 @@
+### Day 3
+1. 元组
+    - 用圆括号括起来，并用逗号分隔元素
+    - 空元组()
+    - 逗号不能省略，只有一个元素的元组写作(x,)
+    - 正数索引是从0开始的，倒数索引是从-1开始的
+    - 切片：[start : stop : step]，左闭右开区间，开头结尾可以省略
+    - 常见函数：in,len,count,index
+        - in:判断是否是该元素的子集
+        - len:返回长度
+        - count:计算出现了多少次
+        - index:返回正向索引
+    - 元组是不可变的，创建元组后就不可修改（指的是元组的地址不具有可变性）
+    - list()函数将元组转成列表
+```
+#【打印1 5】
+items = (1,2,3,4,5)
+print(items[0],items[-1])
+#二重索引【打印2 a】
+items = ((1,2,3),2,"cat",4,5)
+print(items[0][1],items[-3][1])
+#切片【切出(2, 3)】
+items = (1,2,3,4,5)
+print(items[1:3])
+#反向步长【切出(4, 3, 2)
+items = (1,2,3,4,5)
+print(items[-2:0:-1])
+#逆置【切出(5, 4, 3, 2, 1)】
+items = (1,2,3,4,5)
+print(items[::-1])
+#list转换成可变进行修改【打印['abc', 3, 5]】
+items = (1,2,3,4,5)
+itemList = list(items)
+itemList[0] = "abc"
+print(itemList[::2])
+```
+2. 列表
+    - 可以修改
+    - 赋值时赋的是地址，一动全动
+    - 不想改动的时候可以用全切片
+    - 列表可以用+做拼接
+    - 列表函数：可在不复制的情况下添加、删除、修改列表元素
+        - append()：向末尾增加一个元素或一个列表
+        - extend()：增加多个元素
+        - insert()：在指定位置增加元素
+        - pop()：从末尾开始删除并返回该元素
+        - remove()：删除列表中的指定的元素
+        - del 列表名[n]：删除第n+1个元素
+        - sort()：按升序排列
+        - reverse()：无直接提供的倒序函数，利用reverse()反转
+    - 列表解析法
+        - 要的东西放最前面，循环和判定放后面
+        - 生成1-10的平方：[n * n for n in range(1,11)]
+        - 生成10个5：[5 for i in range(10)]
+        - 用于剔除： [n for n in nums if n < 0]
+```
+#一动全动
+L1 = ['a','b','c']
+L2 = L1 #地址相同，改动也相同
+L2[1] = "dog"
+print(L2)
+print(L1)
+#不跟着改动
+L1 = ['a','b','c']
+L2 = L1[:] #全切片，相当于保留了副本
+L2[1] = "dog"
+print(L2)
+print(L1)
+#同一个地址上拼接
+L1 = ['a','b','c']
+L1 += ['d']
+print(L1)
+#不同地址上拼接
+L1 = ['a','b','c']
+print(id(L1))
+L1 = L1 + ['d']
+print(id(L1))
+#【打印['a', 'b', 'c', 'd', 'e', 'g']
+#['a', 'b', 'c', 'd', 'e', 'g', 'h']
+#['a', 'b', 'c', 'd', 'e', ['g', 'h']]
+#['a', 'b', '5', 'c', 'd', 'e']】
+letters = ["a","b","c","d","e"]
+letters.append("g")
+print(letters)
+letters = ["a","b","c","d","e"]
+letters.extend(["g","h"])
+print(letters)
+letters = ["a","b","c","d","e"]
+letters.append(["g","h"])
+print(letters)
+letters = ["a","b","c","d","e"]
+letters.insert(2,"5")
+print(letters)
+#在原地址上排序
+letters = ["a","d","2","b","1"]
+letters.sort()
+print(letters)
+letters.reverse()
+print(letters)
+#创建新的副本进行排序，而不修改源列表
+letters = ["a","d","2","b","1"]
+new = sorted(letters)
+print(letters)
+print(new)
+#修改名单
+nameList = []
+for i in range(5):
+    name = input("请输入第"+ str(i+1) +"个名字：")
+    nameList.append(name)
+print(nameList)
+sortedNameList = sorted(nameList)
+print(sortedNameList)
+print(nameList[2])
+i = int(input("你想替换第几个名字："))
+newname = input("请输入你想替换的新名字：")
+nameList[i-1] = newname
+print(nameList)
+#列表解析法剔除<=0的元素
+result = []
+nums = [-1,0,3,5,23]
+result = [n for n in nums if n > 0]
+result
+#打印[4, 6]，直接在原地址上append
+def append_if_even(x,lst = []):
+    if x%2 == 0:
+        lst.append(x)
+    return lst
+test = append_if_even(4)
+test = append_if_even(6)
+print(test)
+#打印[6]
+def append_if_even(x,lst = None):
+    if lst is None:
+        lst = []
+    if x%2 == 0:
+        lst.append(x)
+    return lst
+test = append_if_even(4)
+test = append_if_even(6)
+print(test)
+默认参数的陷阱问题详情请看：https://blog.csdn.net/weixin_39637661/article/details/111530388?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0.control&spm=1001.2101.3001.4242
+```
+3. 字典
+    - 包含键(key)及其所对应的值(value)的集合
+    - {}表示一个字典
+    - 字典是无序的
+    - 字典名[key] = value，第一次出现是新增，之后是修改
+    - 字典函数
+        - get()：获取key对应的value
+        - keys()：获取字典所有的键列表
+        - values()：获取字典所有的值列表
+        - zip()：快速组合已有列表
+        - del()：删除键，同时对应的值也没了
+        - clear()：删除所有
+        - get()：dictionary.get(word,"not found")，找不到就返回not found字符串
+```
+#字典的键排序
+phonenumber = {}
+phonenumber["Bob"] = "333"
+phonenumber["Mary"] = "111"
+phonenumber["Amy"] = "222"
+for key in sorted(phonenumber.keys()):
+    print(key,phonenumber[key])
+#字典的值排序：主要是循环中去找对应的key
+phonenumber = {}
+phonenumber["Bob"] = "333"
+phonenumber["Mary"] = "111"
+phonenumber["Amy"] = "222"
+for value in sorted(phonenumber.values()):
+    for key in phonenumber.keys():
+        if phonenumber[key] == value:
+            print(key,value)
+            dictionary = {}
+request = input("'a'to add word,'l'to lookup a word,'q'to quit:")
+while request != 'q':
+    if request == 'a':
+        word = input("Type the word:")
+        definition = input("Type the definition:")
+        dictionary[word] = definition
+    elif request == 'l':
+        word = input("Type the word:")
+        print(dictionary.get(word,"not found"))
+    request = input("'a'to add word,'l'to lookup a word,'q'to quit:")
+print("quit!")
+```
+4. 字符串函数
+    - 索引函数：【注意：这里的索引都是正向的索引，一定非负】
+        - s.find(t)：从左往右找得到返回索引，找不到返回-1
+        - s.rfind(t)：从左往右找得到返回索引，找不到返回-1
+        - s.index(t)：从左往右第一个匹配的索引，找不到会报错
+        - s.rindex(t)：从右往左第一个匹配的索引，找不到会报错
+```
+def retExt(filename):
+    dot = filename.rfind(".")
+    if dot == -1:
+        return ""
+    else:
+        return filename[dot + 1:]
+```
+    - 改变大小写函数：
+        - s.captialize()：首字母大写
+        - s.lower()：所有字母小写
+        - s.upper()：所有字母大写
+        - s.swapcase()：大小写字母切换
+    - 字符串剥除函数：
+        - s.strip()：默认情况下剥除空白字符，也可指定字符串参数
+        - s.split()：以指定字符串为分隔符，将字符串划分成一系列子串
+        - s.count(t)：返回t在s中出现的次数
+        - s.join(seq)：使用s将seq连接成一整个字符串
+        - format：如："{0} likes {1}".format("Jack","ice cream")
+        - format：不光数字0,1，还可以用关键字参数写，如："{who} likes {what}".format(who = "Jack",what = "ice cream")
+```
+#对字符串列表进行清洗
+def clean_input(lis):
+    for i in range(len(lis)):
+        lis[i] = lis[i].strip("?! ")
+        lis[i] = lis[i].lower()
+    print(lis)
+albums = [" Thriller","back in Black! ","The Bodyguard?"]
+clean_input(albums)
+```
+5. 类
+    - 是抽象的，需要实例化为具体的个体才能调用
+```
+class Ball:
+    def __init__(self,color,size,direction):
+        self.color = color
+        self.size = size
+        self.direction = direction
+    def bounce(self):
+        if self.direction == "down":
+            self.direction = "up"
+myBall = Ball("red","small","down")
+print("I just create a ball.")
+print("My ball is",myBall.size)
+print("My ball is",myBall.color)
+print("My ball is",myBall.direction)
+print("Now I'm going to bounce my ball")
+myBall.bounce()
+print("Now my ball is",myBall.direction)
+```

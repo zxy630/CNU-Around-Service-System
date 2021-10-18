@@ -1,0 +1,257 @@
+### Day 2
+#### 一、 循环
+1. for循环回顾
+    - 有限次数的循环
+    - range(start,stop,step)
+    - print(" * ",end = " ") #打印出以空格隔开的*
+```
+i = int(input("How many blocks of stars do you want?"))
+j = int (input("How many lines of stars in each block?"))
+k = int(input("How many stars of stars per line?"))
+for block in range(1,i+1):
+    for line in range(1,j+1):
+        for star in range(1,k+1):
+            print("*",end = " ")
+        print()
+    print()
+# 计算 n 的阶乘
+n = int(input("Enter a number >= 0: "))
+fact = 1
+for i in range(2,n+1):
+    fact = fact * i
+print(str(n) + " factorial is " + str(fact))
+```
+2. while循环
+    - 有条件的循环
+```
+# 计算 n 的阶乘
+n = int(input("Enter a number >= 0: "))
+fact = 1
+i = 2
+while i <= n:
+    fact = fact *i
+    i = i + 1
+print(str(n) + " factorial is " + str(fact))
+```
+3. 跳出循环break和continue
+    - break：从当前循环体内任何地方跳出来
+    - continue：终止本次循环，提前进入下一次循环
+```
+#打印到指定数字乘法口诀
+n = int(input("Enter a number : "))
+m = int(input("最大乘到几呢？"))
+i = 1
+while i <= m:
+    print(n,"*",i,"=",n * i)
+    i += 1
+#计算1-4数字一共可以组成多少个不同的三位数
+sum=0
+for i in range(1,5,1):
+    for j in range(1,5,1):
+        for k in range(1,5,1):
+            if(i!=j) and (i!=k) and (j!=k):
+                print(i*100+j*10+k)
+                sum+=1
+print("一共有",sum,"个")
+```
+4. import关键字
+    - import A : A.b的形式调用b
+    - from A import b : 直接用b调用
+    - from A import * : 从模块A中引入全部函数
+    - 光标放在函数名上按shift+tab键可以弹出该函数参数用法【非常好用，强烈推荐以此自学其他函数】
+```
+import easygui
+easygui.msgbox("Hello world!",'提示','ok')#默认参数，按顺序传值
+easygui.msgbox("Hello world!","提示框",ok_button='我知道了')
+flavour = easygui.buttonbox("What is your favourite flavor?","欢迎光临小粥冰淇淋店铺",choices = ["vanilla","chocolate","strawberry"])
+easygui.msgbox("You picked " + flavour + "~","欢迎下次光临哦")
+#输入框
+flavour = easygui.enterbox("What is your favourite flavor?","欢迎光临小粥冰淇淋店铺",default="vanilla")#vanilla香草口味是默认
+easygui.msgbox("You picked " + flavour + "~","欢迎下次光临哦")
+```
+5. easygui应用
+```
+#猜数字游戏
+import random,easygui
+key = random.randint(1,99)#包括1和99
+for i in range(6):
+    keyword = easygui.integerbox("Guess a number between 1 and 100.","Guess Game")
+    if keyword == key:
+        easygui.msgbox("You win!","Guess Game")
+        break
+    else:
+        if keyword > key:
+            easygui.msgbox("Too big!\nFighting again!","Guess Game")
+        else:
+            easygui.msgbox("Too small!\nFighting again!","Guess Game")
+if i == 6:
+        easygui.msgbox("You lose!","Guess Game")
+```
+6. 自定义函数 #Tab键补全名
+    - 格式：def funcName():
+    - 调用：funcName()
+```
+def Birth():
+    print("Happy birthday to you.")
+def HappyBirth(name):
+    Birth()
+    Birth()
+    print("Happy birthday to",name)
+HappyBirth("粥粥")
+#计算长方形面积
+def Trangle(x,y):
+    print("这个长方形的面积是",x * y)
+x = int(input("请输入长方形的长："))
+y = int(input("请输入长方形的宽："))
+Trangle(x,y)
+#每天努力一点点
+def grow(days):
+    now = 1
+    for i in range(1,days + 1):
+        if i % 7 == 6 or i % 7 == 0:
+            now = now * 0.99
+        else :
+            now = now * 1.01
+    print(now)
+grow(365)
+```
+7. 传参
+    - 按顺序传参
+    - 参数默认值
+    - 关键传参
+8. 变量的作用域
+    - 局部变量：只在自己的作用域内有效
+    - 全局变量：一直都有效
+    - 先自给自足：优先调用局部变量
+    - 访问全局变量：必须使用关键字global
+```
+inner = 3 #全局变量
+def f():
+    inner = 2 #局部变量
+    print(inner)
+def f1():
+    print(inner)
+f() # 打印2
+f1() # 打印3
+#打印TJU，从里往外寻找变量
+def f1():
+    print(name)
+def f2():
+    name = "SJTU"
+    f1()
+name = "TJU"
+f2()
+#改名字
+name = "jack"
+def sayhello():
+    print("Hello" + name + "!")
+def changename(new_name):
+    global name
+    name = new_name
+sayhello()
+changename("Mary")
+sayhello()
+#取最大的数
+def maxi(x , y):
+    return x if x > y else y
+maxi(3,4)
+```
+9. 函数的返回值（保留值）
+```
+def calculateTax(price,tax_rate):
+    taxTotal = price + price * tax_rate
+    return taxTotal
+myPrice = float(input("Enter your price"))
+totalPrice = calculateTax(myPrice,0.2)
+print("Price =",myPrice,"Total price =",totalPrice)
+```
+10. 参数
+    - 不定长参数：* args是一个列表，传入的参数会被放进列表里
+    - 关键字参数：* kwargs是一个字典，传入的参数以键值对的形式传进字典
+```
+def fun(*args):
+    total = 0
+    for i in args:
+        total += i
+    return total
+print(fun(2,3,4))
+# 三种参数传参
+def sum(n,*args,**kwargs):
+    n = n
+    for i in args:
+        n = n + i
+    for k in kwargs.values():
+        print(k)
+    return n
+a = sum(3,1,2,3,4,5,b=10)
+print(a)
+```
+11. 海龟画图
+具体函数参考老师PPT
+```
+#画正方形
+import turtle as t
+for i in range(4):
+    t.forward(50)
+    t.left(90)
+t.done()
+#画两条平行线
+import turtle as t
+t.forward(100)
+t.up()
+t.left(90)
+t.forward(20)
+t.left(90)
+t.down()
+t.forward(100)
+t.done()
+#画八角星
+import turtle as t
+for i in range(8):
+    t.forward(100)
+    t.right(225)
+t.done()
+#画九角星
+import turtle as t
+for i in range(9):
+    t.forward(100)
+    t.right(135)
+    t.forward(100)
+    t.left(175)
+t.done()
+#画小车并上色
+import turtle as t
+t.color("red")
+t.begin_fill()
+t.forward(100)
+t.left(90)
+t.forward(20)
+t.left(90)
+t.forward(20)
+t.right(90)
+t.forward(20)
+t.left(90)
+t.forward(60)
+t.left(90)
+t.forward(20)
+t.right(90)
+t.forward(20)
+t.left(90)
+t.forward(20)
+t.end_fill()
+t.up()
+t.forward(20)
+t.left(90)
+t.forward(10)
+t.color("yellow")
+t.begin_fill()
+t.circle(10)
+t.end_fill()
+t.up()
+t.forward(70)
+t.color("yellow")
+t.begin_fill()
+t.circle(10)
+t.end_fill()
+t.done()
+```
