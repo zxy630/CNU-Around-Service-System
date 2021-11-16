@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    body {
+      background-color: #eee;
+    }
+    .list-group-item.active {
+        z-index: 2;
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    .tab-pane {
+        background-color: white;
+        padding: 10px;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+    h2 {
+        font-size: 20px;
+        line-height: 40px;
+    }
+    h3 {
+        font-size: 17px;
+        line-height: 36px;
+    }
+    h4 {
+        font-size: 15px;
+        line-height: 32px;
+    }
+    b {
+        font-weight: bold;
+    }
+</style>
+<div class="container">
+<div class="row" style="padding:10px">
+  <div class="col-4">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">关于我们</a>
+      <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">联系我们</a>
+      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">帮助中心</a>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+          <div id="about-box">
+    <div>
+        <div><h2 class="tabtit" id="关于我们">
+            关于我们</h2>
+        </div>
+    </div>
+</div>
+      </div>
+      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+          <div class="about_con j-aboutCon f-bg f-pr f-cb" data-type="2" id="auto-id-1568271698685">
+    <h2 class="tabtit" id="auto-id-1568271697075">联系我们</h2>
+            <div class="about_content j-aboutContent f-richEditorText edueditor_styleclass_0 edueditor_styleclass_1"
+                 id="auto-id-1568271697076"><p id="auto-id-1568271697079"><strong id="auto-id-1568271697078"><span
+                    id="auto-id-1568271697077" style="font-size: 14px;">客户服务</span></strong><span
+                    id="auto-id-1568271697081" style="font-size: 14px;">（ 包含：功能问题、开课咨询、投诉建议、使用帮助 ）</span><strong><span
+                    style="font-size: 14px;">：&nbsp;</span></strong></p>
+                <p><span style="font-size: 14px;">&nbsp; &nbsp;联系电话：12345678966&nbsp;</span></p>
+                <p><span style="font-size: 14px;">&nbsp; &nbsp;工作时间：周一至周日 09:00-22:00 （春节假期除外）</span></p>
+                <p><span style="font-size: 14px;"><br></span></p>
+                <p><span style="font-size: 14px;">&nbsp; &nbsp;电子邮件：1191002050@cnu.edu.cn</span></p>
+                <p><span style="font-size: 14px;">&nbsp; &nbsp;请在邮件中备注你的联系方式，并详细描述所遇到的问题，我们会尽快帮你解决。</span>
+                </p>
+                <p><span style="font-size: 14px;"><br></span></p>
+                <p><strong><span style="font-size: 14px;">联系地址：&nbsp;</span></strong></p>
+                <p><span style="font-size: 14px;">&nbsp; &nbsp;公司地址：北京市海淀区西三环北路83号学生公寓乙B206</span></p>
+                <p><span style="font-size: 14px;">&nbsp; &nbsp;邮政编码：310052</span></p>
+                <p style="margin-bottom: 0px;"><span
+                        style="font-size:14px;font-family:'Arial',sans-serif;color:#666666;background:white"></span></p>
+            </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+          <div class="con j-tabcon">
+              <div><h2 class="tabtit" id="">
+            帮助中心</h2>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
